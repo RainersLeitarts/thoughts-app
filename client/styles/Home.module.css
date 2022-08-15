@@ -1,25 +1,5 @@
 .container{
-    columns: 4;
-    column-gap: 10px;
     padding: 20px;
     color: black;
 }
 
-.card{
-    border-radius: 10px;
-    border: 3px solid black;
-    margin-bottom: 10px;
-    width: 100%;
-    break-inside: avoid;
-    padding: 16px 20px;
-    box-shadow: 0px 0px;
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.card:hover{
-    box-shadow: 3px 7px;
-    transform: translate(-3px, -7px);
-}

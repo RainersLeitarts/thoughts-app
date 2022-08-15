@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout'
 import ThoughtCard from '../components/ThoughtCard'
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 export default function Home() {
   const { loading, data } = useQuery(FETCH_THOUGHTS_QUERY)
@@ -10,11 +11,20 @@ export default function Home() {
   return (
     <Layout>
       <div className={styles.container}>
-        {data?.getThoughts?.map((thought, key) => {
-          return (
-            <ThoughtCard thought={thought} key={key}/>
-          )
-        })}
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 300: 1, 650: 2, 1000: 3, 1300: 4 }}
+        >
+          { data && <Masonry
+            gutter="10px"
+          >
+            {data?.getThoughts?.map((thought, key) => {
+              console.log('here')
+              return (
+                <ThoughtCard thought={thought} key={key} />
+              )
+            })}
+          </Masonry>}
+        </ResponsiveMasonry>
       </div>
     </Layout>
 
