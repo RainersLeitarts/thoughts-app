@@ -8,6 +8,8 @@ const typeDefs = gql`
         username: String!
         comments: [Comment]!
         likes: [Like]!
+        likeCount: Int!
+        commentCount: Int!
     }
 
     type Comment {
@@ -48,6 +50,9 @@ const typeDefs = gql`
         login(username: String!, password: String!): User!
         createThought(body: String!) : Thought!
         deleteThought(thoughtId: ID!): String
+        createComment(thoughtId: String!, body: String!): Thought!
+        deleteComment(thoughtId: String!, commentId: String!): Thought!
+        likeThought(thoughtId: String!): Thought!
     }
     `
 module.exports = typeDefs
