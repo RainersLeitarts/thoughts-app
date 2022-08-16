@@ -1,11 +1,16 @@
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { useContext } from 'react'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/react-hooks'
 import { useState } from 'react'
 import Layout from '../components/Layout'
+import { AuthContext } from '../context/auth'
+
 import styles from '../styles/Authorize.module.css'
 
-export default function Authorize(props) {
+export default function Authorize() {
+    const router = useRouter()
+    const context = useContext(AuthContext)
     const [isLoginPage, setIsLoginPage] = useState()
     const [errors, setErrors] = useState({})
     const [values, setValues] = useState({
@@ -30,8 +35,8 @@ export default function Authorize(props) {
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) {
-            console.log(result)
-            console.log('Success!')
+            context.login(result.data.register)
+            router.push('/')
         },
         onError(err) {
             console.log(err.graphQLErrors[0].extensions.errors)
@@ -42,8 +47,8 @@ export default function Authorize(props) {
 
     const [loginUser, { loading: loading2 }] = useMutation(LOGIN_USER, {
         update(proxy, result) {
-            console.log(result)
-            console.log('Success!')
+            context.login(result.data.login)
+            router.push('/')
         },
         onError(err) {
             console.log(err.graphQLErrors[0].extensions.errors)

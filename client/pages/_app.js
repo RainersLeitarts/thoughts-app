@@ -1,11 +1,14 @@
 import ApolloProvider from '../apollo/ApolloProvider'
+import { AuthProvider } from '../context/auth'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ApolloProvider>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <AuthProvider>
+      <ApolloProvider>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </AuthProvider>
   )
 
 
