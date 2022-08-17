@@ -1,5 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect, useContext } from "react";
+import jwtDecode from 'jwt-decode'
 
+
+const initialState = {
+    user: null
+}
 
 const AuthContext = createContext({
     user: null,
@@ -10,7 +15,6 @@ const AuthContext = createContext({
 function authReducer(state, action) {
     switch (action.type) {
         case 'LOGIN':
-            console.log(action)
             return {
                 ...state,
                 user: action.payload
@@ -26,10 +30,32 @@ function authReducer(state, action) {
     }
 }
 
+
 function AuthProvider(props) {
-    const [state, dispatch] = useReducer(authReducer, { user: null })
+    const [state, dispatch] = useReducer(authReducer, initialState)
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            const decodedToken = jwtDecode(localStorage.getItem('token'))
+            if (decodedToken.exp * 1000 < Date.now()) {
+                localStorage.removeItem('token')
+                dispatch(
+                    {
+                        type: 'LOGOUT',
+                    }
+                )
+            }
+            dispatch(
+                {
+                    type: 'LOGIN',
+                    payload: decodedToken
+                }
+            )
+        }
+    }, [])
 
     const login = (user) => {
+        localStorage.setItem('token', user.token)
         dispatch(
             {
                 type: 'LOGIN',
@@ -39,6 +65,7 @@ function AuthProvider(props) {
     }
 
     const logout = () => {
+        localStorage.removeItem('token')
         dispatch(
             {
                 type: 'LOGOUT',
@@ -54,4 +81,4 @@ function AuthProvider(props) {
     )
 }
 
-export {AuthContext, AuthProvider}
+export { AuthContext, AuthProvider }

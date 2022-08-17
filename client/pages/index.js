@@ -18,7 +18,6 @@ export default function Home() {
             gutter="10px"
           >
             {data?.getThoughts?.map((thought, key) => {
-              console.log('here')
               return (
                 <ThoughtCard thought={thought} key={key} />
               )

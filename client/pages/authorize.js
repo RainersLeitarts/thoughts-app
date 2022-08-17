@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/react-hooks'
 import { useState } from 'react'
@@ -20,7 +20,13 @@ export default function Authorize() {
         confirmPassword: ''
     })
 
+    useEffect(() => {
+        if(context.user) {
+            router.push('/')
+        }
+    }, [context.user])
 
+    
     const togglePage = () => {
         setIsLoginPage(prev => {
             return !prev
