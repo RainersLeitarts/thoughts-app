@@ -11,10 +11,15 @@ export default function Home() {
   return (
     <Layout>
       <div className={styles.container}>
+        {loading && (
+          <div className={styles.loading}>
+              LOADING...
+          </div>
+        )}
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 300: 1, 650: 2, 1000: 3, 1300: 4 }}
         >
-          { data && <Masonry
+          {data && <Masonry
             gutter="10px"
           >
             {data?.getThoughts?.map((thought, key) => {
