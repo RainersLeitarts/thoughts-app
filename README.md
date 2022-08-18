@@ -2,7 +2,7 @@ Source code for:
 https://wallofthoughts.com/
 
 Description:
-The name is pretty self-explanatory, whatever's in your head goes on the wall. This was a project I built with a goal to sharpen my GraphQL skills.
+The name is pretty self-explanatory, whatever's in your head goes on the wall. This was a project I built with the goal to sharpen my GraphQL skills.
 
 Tech Stack: <br/>
   • ReactJS, NextJS <br/>
